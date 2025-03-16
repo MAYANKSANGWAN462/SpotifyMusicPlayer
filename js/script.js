@@ -36,7 +36,7 @@ async function getSongs(folder) {
         if (element.href.endsWith(".mp3")) {
             //songs.push(element.href); //this is returning the whole link but in order to get the name of the song 
             //we will be using the split keyword which will split the before link and after link in two array and then we can call then by giving the order which we want it can be before the string or it can be after the string
-            songs.push(element.href.split(`/${currentfolder}/`)[1])
+            songs.push(decodeURIComponent(element.href.split(`${currentfolder}/`)[1]));
         }
     }
     /////////////////////////////////////
@@ -73,7 +73,7 @@ async function getSongs(folder) {
 
 const playmusic = ((track, pause = false) => {
     // let audio = new Audio("/SPOTIFY%20CLONE/songs/" + track);
-    currentsong.src = `/${currentfolder}/` + track;
+    currentsong.src = `/${currentfolder}/${encodeURIComponent(track)}`;
     if (!pause) { //using this we will be able to get the songs on the refresh only we not have to click on the playlist to load the song
         currentsong.play();
         playy.src = "img/pause1.svg"; //using this when we are clicking on the song then in the player there should be the pause button come instead of the play button 
@@ -81,6 +81,8 @@ const playmusic = ((track, pause = false) => {
 
     document.querySelector(".songinfo").innerHTML = decodeURI(track); //this decodeURI is added later because earlier on adding the automatic get one song in player then the song name is disturbing so in order to handle the encoded url we have decoded the url
     document.querySelector(".songtime").innerHTML = "00:00 / 00:00"
+    console.log("Playing song:", currentsong.src);
+
 })
 ////////////////////////////////////////////////////////////////////////////
 // async function displayalbums() {
