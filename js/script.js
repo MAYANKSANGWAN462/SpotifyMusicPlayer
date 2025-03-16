@@ -22,7 +22,7 @@ function formatTime(seconds) {
 }
 async function getSongs(folder) {
     currentfolder = folder;
-    let a = await fetch(`/${currentfolder}/`);
+    let a = await fetch(`/${currentfolder}/info.json`);
     let response = await a.text();
     // console.log(response); //will bring the whole html which contains the data also which is fetched
     let ele = document.createElement("div");
